@@ -21,6 +21,7 @@ var state = {
 function initiate() {
     newImage();
     screen.style['border'] = '5px solid black';
+    screen.style['border-radius'] = '10%';
     document.addEventListener('mousemove', handleMove, true);
     document.addEventListener('scroll', newImage, true);
     document.addEventListener('resize', newImage, true);
@@ -36,16 +37,22 @@ function destroy() {
 
 function newImage() {
     screen.style['background-image'] = '';
+    screen.style['border'] = '';
     chrome.runtime.sendMessage(state, function(response) {
         screen.style['background-image'] = 'url(' +response.imgSrc + ')';
     });
+    screen.style['border'] = '5px solid black';
 }
 
 function handleMove(e) {
     screen.style.left = (e.clientX + 10).toString() + 'px';
     screen.style.top = (e.clientY + 10).toString() +'px';
-    screen.style['background-position-x'] = (window.innerWidth - e.clientX).toString() + 'px';
-    screen.style['background-position-y'] = (window.innerHeight - e.clientY).toString() + 'px';
+    screen.style['background-position-x'] = ((window.innerWidth - e.clientX)*2+100).toString() + 'px';
+    screen.style['background-position-y'] = ((window.innerHeight - e.clientY)*2+100).toString() + 'px';
+    var x = (window.innerWidth * 2).toString() + 'px';
+    var y = (window.innerHeight * 2).toString() + 'px';
+    console.log(x+' '+y);
+    screen.style['background-size'] = x + ' ' + y;
     console.log(e);
 }
 
