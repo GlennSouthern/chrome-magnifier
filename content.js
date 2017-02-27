@@ -1,8 +1,8 @@
 var state = {
     active: false,
     activate: function() {
-        
-    }, 
+
+    },
     deactivate: function() {
 
     },
@@ -21,10 +21,23 @@ var state = {
 function initiate() {
     newImage();
     screen.style['border'] = '5px solid black';
-    screen.style['border-radius'] = '10%';
+    screen.style['border-radius'] = '50%';
     document.addEventListener('mousemove', handleMove, true);
     document.addEventListener('scroll', newImage, true);
     document.addEventListener('resize', newImage, true);
+}
+
+var timeOut = false;
+function throttle(e, func) {
+    debugger;
+    if (!timeOut) {
+        setTimeout(function() {
+            func(e);
+            timeOut = false;
+        }, 100)
+    } else {
+        timeOut = true;
+    }
 }
 
 function destroy() {
@@ -45,12 +58,13 @@ function newImage() {
 }
 
 function handleMove(e) {
+    debugger;
     screen.style.left = (e.clientX + 10).toString() + 'px';
     screen.style.top = (e.clientY + 10).toString() +'px';
-    screen.style['background-position-x'] = ((window.innerWidth - e.clientX)*2+100).toString() + 'px';
-    screen.style['background-position-y'] = ((window.innerHeight - e.clientY)*2+100).toString() + 'px';
-    var x = (window.innerWidth * 2).toString() + 'px';
-    var y = (window.innerHeight * 2).toString() + 'px';
+    screen.style['background-position-x'] = ((window.innerWidth - e.clientX)*4+100).toString() + 'px';
+    screen.style['background-position-y'] = ((window.innerHeight - e.clientY)*4+100).toString() + 'px';
+    var x = (window.innerWidth * 4).toString() + 'px';
+    var y = (window.innerHeight * 4).toString() + 'px';
     console.log(x+' '+y);
     screen.style['background-size'] = x + ' ' + y;
     console.log(e);
